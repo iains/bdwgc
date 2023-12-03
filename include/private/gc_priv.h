@@ -19,7 +19,7 @@
 #define GC_PRIVATE_H
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+# include "gc_config.h"
 #endif
 
 #if !defined(GC_BUILD) && !defined(NOT_GCBUILD)

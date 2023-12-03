@@ -12,7 +12,7 @@
  */
 
 #ifdef HAVE_CONFIG_H
-# include "config.h"
+# include "gc_config.h"
 #endif
 #ifndef CORD_BUILD
 # define CORD_BUILD
