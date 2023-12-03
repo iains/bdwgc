@@ -26,7 +26,7 @@ LIBGCCPP_VER_INFO = 6:0:5
 # libatomic_ops directory.
 SUBDIRS = testsuite
 
-ACLOCAL_AMFLAGS = -I m4
+ACLOCAL_AMFLAGS = -I m4  -I .. -I ../config
 AM_CPPFLAGS = \
     -I$(top_builddir)/include -I$(top_srcdir)/include \
     $(ATOMIC_OPS_CFLAGS)
