@@ -24,7 +24,7 @@ LIBGCCPP_VER_INFO = 6:0:5
 # use the internal version.
 # Thus there seems to be no real reason to recursively build in the
 # libatomic_ops directory.
-SUBDIRS =
+SUBDIRS = testsuite
 
 ACLOCAL_AMFLAGS = -I m4
 AM_CPPFLAGS = \
@@ -207,7 +207,7 @@ EXTRA_DIST += tools/if_mach.c tools/if_not_there.c tools/setjmp_t.c \
 
 include include/include.am
 include cord/cord.am
-include tests/tests.am
+#include tests/tests.am
 
 ## Putting these at the top causes cord to be built first, and not find
 ## libgc.a on HP/UX.  There may be a better fix.
@@ -263,4 +263,4 @@ dist_man3_MANS = gc.man
 endif
 
 # A dummy target for mono build.
-test-bundle:
+#test-bundle:

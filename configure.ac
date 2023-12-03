@@ -1296,7 +1296,7 @@ fi
 dnl Produce the Files
 dnl -----------------
 
-AC_CONFIG_FILES([Makefile bdw-gc.pc])
+AC_CONFIG_FILES([Makefile bdw-gc.pc testsuite/Makefile])
 
 AC_CONFIG_COMMANDS([default],,
    [srcdir="${srcdir}"
