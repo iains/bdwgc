@@ -26,6 +26,8 @@ AM_INIT_AUTOMAKE([foreign no-dist subdir-objects])
 AC_CONFIG_HEADERS([include/gc_config.h])
 AM_MAINTAINER_MODE
 
+AM_ENABLE_MULTILIB(, ..)
+
 AC_SUBST(PACKAGE)
 AC_SUBST(GC_VERSION)
 
