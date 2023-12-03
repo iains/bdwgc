@@ -506,7 +506,7 @@ AC_SUBST(extra_ldflags_libgc)
 
 AC_SUBST(EXTRA_TEST_LIBS)
 
-target_all=libgc.la
+target_all=libgcjgc.la
 AC_SUBST(target_all)
 
 dnl If the target is an eCos system, use the appropriate eCos

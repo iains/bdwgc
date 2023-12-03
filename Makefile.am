@@ -47,21 +47,23 @@ pkgconfig_DATA = bdw-gc.pc
 # C Library
 # ---------
 
-lib_LTLIBRARIES += libgc.la
+#lib_LTLIBRARIES += libgc.la
+noinst_LTLIBRARIES = libgcjgc.la
+#libgcjgc_convenience.la
 
 if SINGLE_GC_OBJ
 
-libgc_la_SOURCES = extra/gc.c
+libgcjgc_la_SOURCES = extra/gc.c
 
 if PTHREAD_START_STANDALONE
 AM_CPPFLAGS += -DGC_PTHREAD_START_STANDALONE
-libgc_la_SOURCES += pthread_start.c
+libgcjgc_la_SOURCES += pthread_start.c
 endif
 
 else
 
 EXTRA_DIST += extra/gc.c
-libgc_la_SOURCES = \
+libgcjgc_la_SOURCES = \
     allchblk.c alloc.c blacklst.c dbg_mlc.c \
     dyn_load.c finalize.c gc_dlopen.c headers.c \
     mach_dep.c malloc.c mallocx.c mark.c mark_rts.c misc.c new_hblk.c \
@@ -72,74 +74,74 @@ libgc_la_SOURCES = \
 
 if THREADS
 
-libgc_la_SOURCES += pthread_start.c pthread_support.c
+libgcjgc_la_SOURCES += pthread_start.c pthread_support.c
 
 if THREAD_LOCAL_ALLOC
-libgc_la_SOURCES += thread_local_alloc.c
+libgcjgc_la_SOURCES += thread_local_alloc.c
 endif
 
 if WIN32_THREADS
-libgc_la_SOURCES += win32_threads.c
+libgcjgc_la_SOURCES += win32_threads.c
 else
 if DARWIN_THREADS
-libgc_la_SOURCES += darwin_stop_world.c
+libgcjgc_la_SOURCES += darwin_stop_world.c
 else
-libgc_la_SOURCES += pthread_stop_world.c
+libgcjgc_la_SOURCES += pthread_stop_world.c
 endif
 endif
 
 endif
 
 if MAKE_BACK_GRAPH
-libgc_la_SOURCES += backgraph.c
+libgcjgc_la_SOURCES += backgraph.c
 endif
 
 if CHECKSUMS
-libgc_la_SOURCES += checksums.c
+libgcjgc_la_SOURCES += checksums.c
 endif
 
 if ENABLE_GCJ_SUPPORT
-libgc_la_SOURCES += gcj_mlc.c
+libgcjgc_la_SOURCES += gcj_mlc.c
 endif
 
 if ENABLE_DISCLAIM
-libgc_la_SOURCES += fnlz_mlc.c
+libgcjgc_la_SOURCES += fnlz_mlc.c
 endif
 
 ## End of !SINGLE_GC_OBJ
 endif
 
 if USE_INTERNAL_LIBATOMIC_OPS
-nodist_libgc_la_SOURCES = libatomic_ops/src/atomic_ops.c
+nodist_libgcjgc_la_SOURCES = libatomic_ops/src/atomic_ops.c
 if NEED_ATOMIC_OPS_ASM
-nodist_libgc_la_SOURCES += libatomic_ops/src/atomic_ops_sysdeps.S
+nodist_libgcjgc_la_SOURCES += libatomic_ops/src/atomic_ops_sysdeps.S
 endif
 endif
 
 # Include THREADDLLIBS here to ensure that the correct versions of
 # linuxthread semaphore (and clock_gettime) functions get linked:
-libgc_la_LIBADD = @addobjs@ $(THREADDLLIBS) $(UNWINDLIBS) $(ATOMIC_OPS_LIBS)
-libgc_la_DEPENDENCIES = @addobjs@
-libgc_la_LDFLAGS = $(extra_ldflags_libgc) -version-info $(LIBGC_VER_INFO) \
+libgcjgc_la_LIBADD = @addobjs@ $(THREADDLLIBS) $(UNWINDLIBS) $(ATOMIC_OPS_LIBS)
+libgcjgc_la_DEPENDENCIES = @addobjs@
+libgcjgc_la_LDFLAGS = $(extra_ldflags_libgc) -version-info $(LIBGC_VER_INFO) \
     -no-undefined
 
-EXTRA_libgc_la_SOURCES = ia64_save_regs_in_stack.s sparc_mach_dep.S \
+EXTRA_libgcjgc_la_SOURCES = ia64_save_regs_in_stack.s sparc_mach_dep.S \
     sparc_netbsd_mach_dep.s
 
 if CPLUSPLUS
 # C++ Interface
 # -------------
-lib_LTLIBRARIES += libgccpp.la
-libgccpp_la_SOURCES = gc_badalc.cc gc_cpp.cc
-libgccpp_la_LIBADD = libgc.la
-libgccpp_la_LDFLAGS = -version-info $(LIBGCCPP_VER_INFO) -no-undefined
+noinst_LTLIBRARIES += libgcjgccpp.la
+libgcjgccpp_la_SOURCES = gc_badalc.cc gc_cpp.cc
+libgcjgccpp_la_LIBADD = libgcjgc.la
+libgcjgccpp_la_LDFLAGS = -version-info $(LIBGCCPP_VER_INFO) -no-undefined
 if GC_TBA_LIBRARY
 # The same as libgccpp but contains only gc_badalc.o.
-lib_LTLIBRARIES += libgctba.la
-libgctba_la_SOURCES = gc_badalc.cc
-libgctba_la_LIBADD = libgc.la
+noinst_LTLIBRARIES += libgcjgctba.la
+libgcjgctba_la_SOURCES = gc_badalc.cc
+libgcjgctba_la_LIBADD = libgcjgc.la
 # Set the same version as for libgccpp.
-libgctba_la_LDFLAGS = -version-info $(LIBGCCPP_VER_INFO) -no-undefined
+libgcjgctba_la_LDFLAGS = -version-info $(LIBGCCPP_VER_INFO) -no-undefined
 endif
 endif
 
